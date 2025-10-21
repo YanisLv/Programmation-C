@@ -88,15 +88,14 @@ struct grille creer(int x, int y, int nb_total) {
             if (g.tab[i][j].mine_ou_non == 1) {
                 for (int k = i - 1; k <= i + 1; k++) {
                     for (int m = j - 1; m <= j + 1; m++) {
-                        if (k >= 0 && k < x && m >= 0 && m < y && !(k == i && m == j)) {
+                        if(k >= 0 && k < x && m >= 0 && m < y && !(k == i && m == j)) {
                             g.tab[k][m].nb_mines_adj++;
                         }
                     }
                 }
             }
         }
-    }
-    
+    }   
     return g;
 }
 
@@ -145,14 +144,14 @@ void afficher(struct grille g){
 }
 
 //6
-
+/*
 void devoiler_case_vide(struct grille *g, int x, int y){
     g->nb_mines_dec ++;
-    if((g->tab[x][y].etat == 'X' || g->tab[x][y].etat == 'F') && ){
+    if((g->tab[x][y].etat == 'X' || g->tab[x][y].etat == 'F')){
         if(g->tab[x][y].mine_ou_non == 0)
     }
 }   
-
+*/
 
 //--------- PROGRAME MAIN PRINCIPAL ----------//
 int main(){

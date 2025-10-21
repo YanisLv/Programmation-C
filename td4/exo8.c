@@ -2,18 +2,16 @@
 #include<stdlib.h>
 
 void tri_bulle(int *t, int n){
-    int i = 0, j, tmp;
-    while(i<n){
-        j = i;
-        while(j!=0 && t[j]<t[i]){
-            tmp = t[j];
-            t[j] = t[i];
-            j++;
+    int tmp;
+    for(int j = 0; j < n; j++){
+        for(int i = 0; i <n-1; i++){
+            if(t[i]>t[i+1]){
+                tmp = t[i];
+                t[i] = t[i+1];
+                t[i+1] = tmp;
             }
-        t[i] = tmp;
-        i++;
+        }  
     }
-    
 }
 
 void afficher(int *t, int n){
@@ -26,9 +24,9 @@ void afficher(int *t, int n){
 
 int main(){
     
-    int t[255]= {5,8,9,6,4,3,2,1};
-    afficher(t,8);
-    tri_bulle(t,8);
-    afficher(t,8);
+    int t[255]= {8,2,9,4,1};
+    afficher(t,5);
+    tri_bulle(t,5);
+    afficher(t,5);
     return 0;
 }
