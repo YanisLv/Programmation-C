@@ -1,1 +1,1 @@
-Exercices TD, projets et examen en langage C.
+Exercices TD, projets et examens en langage C.
