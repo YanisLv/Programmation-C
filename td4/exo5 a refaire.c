@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 #include<stdio.h>
-=======
 #include <stdio.h>
 
 void damier(int t, int c) {
@@ -59,7 +57,6 @@ void damier(int t, int c){
 
 }
 */
->>>>>>> a456e3f42eed8777e9973888cb0c3cd9f91003ab
 /*
 void damier(int t, int c){
     for(int k = 0; k<c;k++){
@@ -79,7 +76,6 @@ void damier(int t, int c){
         }
     }
 }
-<<<<<<< HEAD
 
 */
 void damier(int t, int c){
@@ -99,9 +95,7 @@ void damier(int t, int c){
 
 
 
-=======
-*/
->>>>>>> a456e3f42eed8777e9973888cb0c3cd9f91003ab
+
 int main()
 {
     damier(4,2);
