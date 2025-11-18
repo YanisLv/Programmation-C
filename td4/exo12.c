@@ -19,8 +19,7 @@ int main(){
     scanf("%d",&a);
     date.jour = j;
     date.mois = m;
-    date.annee = a;
-    
-    printf("la date saisie est le %d/%d/%d \n", date.jour, date.mois,date.annee);
+    date.annee = a; 
+    printf("la date saisie est le %02d/%02d/%d \n", date.jour, date.mois,date.annee);
     return 0;
 }
