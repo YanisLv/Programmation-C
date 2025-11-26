@@ -76,9 +76,18 @@ struct nombre mul(struct nombre a, struct nombre b, struct nombre res){
     unsigned int carry = 0;
     unsigned int tmp = 0;
     unsigned int somme = 0;
-    for(int i = 0; i<b.k; i++){
-        for(int j = 0; j<a.k;j++){
+    unsigned short res_tmp = allou(a.k);
+    for(int i = 0; i<a.k; i++){
+        for(int j = 0; j<b.k;j++){
+            tmp = a.ens[i]*b.ens[j]+carry;
+            if(tmp>65536){
+                carry = tmp / 65536;
+                res_tmp[]
+            }
+            else{
+                carry = 0;
 
+            }
         }
     }
 }
