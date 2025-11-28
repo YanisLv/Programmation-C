@@ -19,7 +19,6 @@ struct nombre{
     int signe;
     unsigned short *ens;
     int k;
-    
 };
 
 //2)
@@ -36,7 +35,26 @@ struct nombre creer_nombre(int p){
     nb.ens = allou(nb.k);
     return nb;
 }
+
+
+/*correction 2)
+struct nombre *creer_nombre(int p){
+    struct nombre * n =(struct nombre*)malloc(sizeof(struct nombre));
+    if(p % 16 == 0){
+        n->k = p / 16;
+    }
+    else{
+        n->k = p / 16 + 1;
+        
+    }
+    n->signe = 0;
+    n->ens = (unsigned short*)malloc(n->k*sizeof(unsigned short));
+    return n;
+}
+*/
 //3)
+
+
 
 struct nombre addsub(struct nombre a, struct nombre b, struct nombre res, char ope){
     unsigned int carry = 0;
@@ -91,6 +109,16 @@ struct nombre mul(struct nombre a, struct nombre b, struct nombre res){
         }
     }
 }
+/*correction multiplication !!! PHOTO §§
+    void multiplication(struct nombre *n1, struct nombre *n2, struct nombre *res){
+        if(res!= NULL){
+            //...
+            if(res->k < n1->k + n2->k){
+
+            }
+        }
+    }
+*/
 
 int main(){
 
