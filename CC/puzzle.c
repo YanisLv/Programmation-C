@@ -125,13 +125,14 @@ struct grille *charger_puzzle(char *nom){
                     fscanf(fic,"%d",&tp[i]);
                 }
             fscanf(fic, "%d",&couleur);
+            
             g->piece[i] = creer_piece(-1,-1,l,h,couleur);
             }
             i++;
         }
     }
     
-
+    return g;
 }
 
 //--- PROGRAMME PRINCIPAL
