@@ -130,7 +130,7 @@ struct graphe{
     char **noms;
     struct liste_couples **liste_ajd;
 };
-
+/*
 //2) !!!!!!!!!!!!!!!!!!! REVENIR 🪧🛑🛑🛑🛑🛑🛑😵
 struct graphe *construire_graphe(char *nom_fichier){
     int nb_sommets, i = 0,tmp_som1, tmp_som2,tmp_val;
@@ -152,11 +152,23 @@ struct graphe *construire_graphe(char *nom_fichier){
     }
     return g;
 }
+    */
 //3)
 int trouver_sommet(char *nom, struct graphe *g){
-    g->noms
+    int i = 0, trouve = 0;
+    while(trouve == 0 && g->noms[i] != '\0'){
+        if(g->noms[i] == nom){
+            trouve = 1;
+        }
+        i++;
+    }
+    if(trouve == 1){
+        return i;
+    }
+    return -1;
 }
-
+//4)
+void afficher_graphe()
 // --------------------- PROGRAMME PRINCIPAL--------------------
 int main(){
     struct couple c; c.sommet = 1, c.valeur = 5;
