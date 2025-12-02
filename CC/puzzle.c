@@ -121,13 +121,21 @@ struct grille *charger_puzzle(char *nom){
             fscanf(fic,"%d",&h);
             for(int j = 0; j<l*h; j++){
                 tp = (int*)malloc((l*h)*sizeof(int));
+            }
                 if(tp != NULL){
                     fscanf(fic,"%d",&tp[i]);
-                }
             fscanf(fic, "%d",&couleur);
             
             g->piece[i] = creer_piece(-1,-1,l,h,couleur);
+            for(int i1 = 0; i1<h; i1++){
+                for(int j1 = 0; j1<l;j1++){
+                        g->piece[i]->tab[i1][j1] = tp[i1*l + j1];
+                        }
+                    }
+                
             }
+            
+            
             i++;
         }
     }

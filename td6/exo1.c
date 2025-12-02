@@ -20,18 +20,21 @@ int sub_rec(int a, int b){
 
 //3)
 int mul_rec(int a, int b){
+    int res = 0;
     if(b==0){
-        retutaddition_rec(a,1);
+        return res;
     }
+    a= addition_rec(b,b);
+    return mul_rec(a,b-1);
 }
 
 int main(){
     int a = 2,b=5;
     int res = addition_rec(a,b);
     int res_sub = sub_rec(a,b);
-    int res_mul = mul_rec;
+    int res_mul = mul_rec(a,b);
     printf("le resultat de %d + %d est %d \n",a,b,res);
     printf("le resultat de %d - %d est %d \n",a,b,res_sub);
-    printf("le resultat de %d - %d est %d \n",a,b,res_mul);
+    printf("le resultat de %d * %d est %d \n",a,b,res_mul);
     return 0;
 }
