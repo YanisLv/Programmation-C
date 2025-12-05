@@ -113,7 +113,7 @@ struct nombre mul(struct nombre a, struct nombre b, struct nombre res){
     void multiplication(struct nombre *n1, struct nombre *n2, struct nombre *res){
         if(res!= NULL){
             //...
-            if(res->k < n1->k + n2->k){
+            if(res->k < n1-> k + n2->k){
 
             }
         }

@@ -129,39 +129,63 @@ void afficher_pieces(struct grille *g){
     }
 }
 
-//3)
+//3) REVOIR LA LOGIQUE ⛔⛔⛔⛔⛔⛔⛔⛔⛔❤️❤️😂😂😒😒😘
 
-void afficher(struct grille *g){
-    if (g==NULL){printf("erreur chargement grille \n");return;}
-    printf("+");
-    for(int i = 0; i<g->m;i++){
-        printf("-");
+void afficher(struct grille *g) {
+    if (g == NULL) {
+        printf("Erreur : grille NULL\n");
+        return;
     }
+
+    // Ligne du haut
+    printf("+");
+    for (int j = 0; j < g->m; j++) printf("-");
     printf("+\n");
-    for(int i = 0;i<g->n;i++){
+
+    // Parcours de la grille
+    for (int i = 0; i < g->n; i++) {
         printf("|");
-        for(int j = 0; j<g->m; j++){
-            if(g->tp[i]->x != -1 ){
-                if(g->tp[i]->x == i && g->tp[i]->y ==j){
-                    for(int k = 0; k<g->tp[i]->h;k++){
-                        for(int m = 0; m<g->tp[i]->l;m++){
-                            printf("%d",g->tp[i]->couleur);
-                        }
+        for (int j = 0; j < g->m; j++) {
+            int printed = 0;
+
+            // On parcourt TOUTES les pièces
+            for (int p = 0; p < g->nb_pieces; p++) {
+                struct piece *pc = g->tp[p];
+
+                if (pc->x != -1) {  // pièce placée ?
+                    if (i >= pc->x && i < pc->x + pc->h &&
+                        j >= pc->y && j < pc->y + pc->l) {
+                        printf("%d", pc->couleur);
+                        printed = 1;
+                        break;
                     }
                 }
             }
+
+            if (!printed)
+                printf(".");
         }
         printf("|\n");
     }
+
+    // Ligne du bas
     printf("+");
-    for(int i = 0; i<g->m;i++){
-        printf("-");
-    }
+    for (int j = 0; j < g->m; j++) printf("-");
     printf("+\n");
 }
+
+//------------------------3 - Résolution du puzzle-------------------
+
+//1)
+struct mouvement{
+    
+};
+
 //--------------- PROGRAMME PRINCIPAL-----------------
 int main(){
     struct grille *g = charger_puzzle("puzzle.txt");
+    g->tp[0]->x = 0; g->tp[0]->y = 0; 
+    g->tp[1]->x = 1; g->tp[1]->y = 1; 
     afficher(g);
     return 0;
 }
