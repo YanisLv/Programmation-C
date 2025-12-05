@@ -294,7 +294,7 @@ void dijkstra(struct graphe *g, int s1, int s2){
             break;
         }
         else{
-            
+             
         }
     }
 
