@@ -5,116 +5,161 @@
 //------------------- I . Modélisation des véhicules et configurations-----------------
 
 //1)
-struct voiture{
-    int ligne, colonne, longueur;
+struct vehicule{
+    int ligne, colonne;
+    int longueur;
     char orientation;
     char nom;
 };
 
 struct configuration{
-    struct voiture tab_voiture[16];
+    struct vehicule tab_vehicules[16];
     int prec;
-    int vehicule_mouv;
-    char direction;
-    int longueur;
+    int vehicule_mouv;//      |
+    char direction_mouv;//     >   MOUVEMENT
+    int longueur_mouv; //     |
 };
 
 //2)
+
 struct rush_hour{
-    struct configuration *C;
-    int current_config;
-    int size;
-    int max;
-    int nb_vehicules;
+    struct configuration *tab_config;
+    int current, size, max,nb_vehicule;
 };
 
 //3)
-void increase_size(struct rush_hour *r, int n){
-    int new_size = n+r->size;
-    struct configuration *new = (struct configuration*)malloc(new_size*sizeof(struct configuration));
-
-    if(new == NULL){
-        printf("impossible d'augmenter la taille du tableau\n");
+void increase_size(struct rush_hour *R, int n){
+    if(R == NULL){
         return;
     }
-    for(int i = 0; i<r->size;i++){
-        new[i] = r->C[i];
+    if(R->tab_config == NULL){
+        R->tab_config = malloc(n*sizeof(struct configuration));
+        R->size = n;
     }
-    free(r->C);
-    r->C = new;
-    r->size = new_size;
+    else{
+        int x = n+R->size;
+        struct configuration *t = malloc(x*sizeof(struct configuration));
+        for(int i = 0; i<R->size; i++){
+            t[i] = R->tab_config[i];
+        }
+        free(R->tab_config);
+        R->tab_config = t;²
+        R->size = x;
+    }
+
 }
 
-// -------------------- 2 . LECTURE ET AFFICHAGE -----------------------
+
+//------------------------------ 2 - LECTURE ET AFFICHAGE-----------------------//
 
 //1)
-
-struct rush_hour* allocate(char *nom_fichier){
-    FILE *fic = fopen(nom_fichier,"r");
-    if(fic != NULL){
-        int i = 0, tmp_ligne, tmp_col, tmp_long;
-        char tmp_ori, tmp_nom;
-        struct rush_hour *r = (struct rush_hour*)malloc(sizeof(struct rush_hour));
-        if(r == NULL){return NULL;}
-        r->size = 2;
-        r->current_config = 0;
-        r->max = 0;
-        struct configuration *C0 = (struct configuration*)malloc(r->size*sizeof(struct configuration));
-        if(C0 == NULL){return NULL;}
-        while(i<16 && fscanf(fic,"%d %d %d %c %c",&tmp_ligne, &tmp_col, &tmp_long,&tmp_ori,&tmp_nom) != EOF){
-            C0->tab_voiture[i].ligne = tmp_ligne;
-            C0->tab_voiture[i].colonne = tmp_col;
-            C0->tab_voiture[i].longueur = tmp_long;
-            C0->tab_voiture[i].orientation = tmp_ori;
-            C0->tab_voiture[i].nom = tmp_nom;
-            i++;
-        }
-        C0->prec = -1, C0->vehicule_mouv =-1, C0->longueur = -1, r->nb_vehicules = i, C0->direction = ' ';
-        r->C[0] = *C0;
-        fclose(fic);
-        return r;
+struct rush_hour* allocate(char *fichier){
+    struct rush_hour *R = malloc(sizeof(struct rush_hour));
+    int i = 0;
+    int ligne, colonne,longueur;
+    char orientation, nom;
+    FILE *fic = fopen(fichier, "r");
+    if(fic == NULL){
+        printf("erreur fichier \n");
+        return NULL;
     }
-    return NULL;
-
+    R->tab_config = malloc(sizeof(struct configuration));
+    while(fscanf(fic,"%d %d %d %c %c", &ligne, &colonne,&longueur,&orientation,&nom) != EOF){
+        R->tab_config[0].tab_vehicules[i].ligne = ligne;
+        R->tab_config[0].tab_vehicules[i].colonne = colonne;
+        R->tab_config[0].tab_vehicules[i].longueur = longueur;
+        R->tab_config[0].tab_vehicules[i].orientation = orientation;
+        R->tab_config[0].tab_vehicules[i].nom = nom;
+        i++;
+    }
+    R->current = 0, R->size = 1; R->max = 1;
+    return R;
 }
-
 //2)
-void desallocate(struct rush_hour *r){
-    if(r!=NULL)
-    {
-        if(r->C != NULL){
-            free(r->C);
+void desallocate(struct rush_hour *R){
+    if(R!= NULL){
+        if(R->tab_config != NULL){
+            free(R->tab_config);
         }
-        free(r);
+        free(R);
     }
 }
-/*
-struct voiture{
-    int ligne, colonne, longueur;
-    char orientation;
-    char nom;
-};
-*/
 
 //3)
-void print(struct rush_hour *r){
-    if(r != NULL){printf("erreur de chargement du jeu\n");return;}
-    int k = r->current_config;
+void print(struct rush_hour *R){
+    if(R == NULL){return;}
+    int curr = R->current;
+    int nb_fois = 0, oui = 0;
     printf("+");
-    for(int i = 0; i<6; i++){
+    for(int i = 0; i<6;i++){
         printf("-");
     }
     printf("+\n");
-    for(int i = 0; i<6;i++){
+    
+   char tab[6][6];
+   for(int i = 0; i<6;i++){
         for(int j = 0; j<6; j++){
-            if()
+            tab[i][j] = '.';
+        }
+   }
+
+
+   for(int i = 0; i<6;i++){
+        for(int j = 0; j<6;j++){
+            for(int k = 0; k<6;k++){
+                if(R->tab_config[curr].tab_vehicules[k].ligne == i && R->tab_config[curr].tab_vehicules[k].colonne == j&& R->tab_config[curr].tab_vehicules[k].orientation == 'h'){
+                    for(int m = 0; m<R->tab_config[curr].tab_vehicules[k].longueur;m++){
+                        tab[i][j+m] = R->tab_config[curr].tab_vehicules[k].nom;
+                    }
+                }
+                if(R->tab_config[curr].tab_vehicules[k].ligne == i && R->tab_config[curr].tab_vehicules[k].colonne == j&& R->tab_config[curr].tab_vehicules[k].orientation == 'v'){
+                    for(int m = 0; m<R->tab_config[curr].tab_vehicules[k].longueur;m++){
+                        tab[i+m][j] = R->tab_config[curr].tab_vehicules[k].nom;
+                    }
+                }
+
+            }
+        }
+   }
+
+   for(int i = 0; i<6;i++){
+    printf("|");
+        for(int j = 0; j<6;j++){
+            printf("%c",tab[i][j]);
+        }
+        printf("|\n");
+   }
+
+    printf("+");
+    for(int i = 0; i<6;i++){
+        printf("-");
+    }
+    printf("+\n");
+}
+
+//----------------------  3  - ROTATION AUTOMATIQUE--------------------
+
+//1)
+
+struct configuration *move(struct rush_hour *R, int k, int d,int l){
+    if(R== NULL){
+        return NULL;
+    }
+    struct configuration *C = malloc(sizeof(struct configuration));
+    if(R->tab_config[R->current].tab_vehicules[k].orientation == 'h'){
+        if(R->tab_config[R->current].tab_vehicules[k].colonne + l < 6){
+            for(int j = 0; j<R->nb_vehicule; j++){
+                if(j!=k){
+                    if(R->tab_config[R->current].tab_vehicules[k].ligne+ != )
+                }
+            }
         }
     }
-    
 }
-
 
 int main(){
-
+    struct rush_hour *r = allocate("rush_hour.txt");
+    print(r);
     return 0;
 }
+
