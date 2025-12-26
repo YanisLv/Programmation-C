@@ -11,18 +11,20 @@ int compteur(char *nom_fichier){
         if(fic == NULL){
             return 0;
         }
+        lignes = 1;
         while(fscanf(fic,"%c",&tmp) != EOF){
             if(tmp != ' '){
                 i++;
             }
             if(tmp == '\n'){
-                lignes ++;
+                lignes  = lignes +1 ;
             }
-            if(tmp == '\0'){
-                mots++;
+            if(tmp == ' '){
+                mots++;     // FAUX !
             }
         }
-        return i,mots,lignes;
+        printf("il y a %d lignes et %d mots \n",lignes,mots);
+        return i;
     fclose(fic);
 }
 
@@ -30,10 +32,11 @@ int compteur(char *nom_fichier){
 
 
 
+
 int main(){
 
-    int a,b,c = compteur("texte.txt");
-    printf("il y a %d caracteres dans le fichier %d mots et %d lignes\n",a,b,c);
+    int a= compteur("texte.txt");
+    printf("il y a %d caracteres dans le fichier\n",a);
     
     return 0;
 }
