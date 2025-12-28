@@ -233,6 +233,7 @@ int main(){
 */
 // EXERCICE 6
 
+/*
 //1)
 int marche(int *t, int n){
     int i = 0;
@@ -243,13 +244,76 @@ int marche(int *t, int n){
 }
 
 int main(){
+    srand(time(NULL));
     int n;
     printf("entrez n : \n");
     scanf("%d",&n);
     int *tab = malloc(n*sizeof(n));
     for(int i = 0; i<n;i++){
-        tab[i] = rand() 21;
+        tab[i] = rand() %21;
+    }
+    for(int i = 0; i<n;i++){
+        printf("%d ", tab[i]);
+    }
+    printf("\n");
+    int bille = marche(tab,n);
+    printf("la bille s'est arretee a la %de marche \n",bille);
+    free(tab);
+    return 0;
+}
+*/
+//--- EXERCICE 7
+
+//1)
+
+void allouer_triangle(int ***t, int n){
+    *t = malloc(n*sizeof(int*));
+    for(int i = 0; i<n;i++){
+        (*t)[i] = malloc((i+1)*sizeof(int));
     }
     
-
+    //1)
+    for(int i = 0;i<n;i++){
+        (*t)[i][0] = 1;
+        (*t)[i][i] = 1;
+    }
+    //2)
+    for(int i = 1; i<n;i++){
+        for(int j = 1; j<i;j++){
+            (*t)[i][j] = (*t)[i-1][j-1] + (*t)[i-1][j];
+        }
+    }
 }
+//2)
+void afficher(int **t, int n){
+    for(int i = 0; i<n;i++){
+        for(int j = 0; j<i+1;j++){
+            printf("%d ", (t)[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void liberer(int **tab,int n){
+    if(tab!= NULL){
+        for(int i = 0; i<n;i++){
+            if(tab[i] != NULL){
+                free(tab[i]);
+            }
+        }
+        free(tab);
+    }
+}
+
+//3)
+int main(){
+
+    int **tab = NULL;
+    allouer_triangle(&tab, 5);
+    afficher(tab,5);
+    liberer(tab,5);
+    afficher(tab,5);
+    return 0;
+}
+
+
