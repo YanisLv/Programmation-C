@@ -64,7 +64,7 @@ int main(){
 
 //------------ EXERCICE 5----------------
 
-
+/*
 void afficher(int *t, int n){
     for(int i = 0; i<n;i++){
         printf("%d ",*(t+i));
@@ -91,10 +91,10 @@ void tri(int t[10]){
 void tri_selection(int *t, int n){
     int j, tmp;
     for(int i = 1; i<n;i++){
+        tmp = t[i];
         j = i;
-        while(t[i-1]>t[i] && j>=i){
-            t[i-1] = t[i];
-            tmp = t[j];
+        while(t[j-1]>tmp && j>0){
+            t[j] = t[j-1];
             j = j-1;
         }
         t[j] = tmp;
@@ -108,3 +108,28 @@ int main(){
     afficher(t,10);
     return 0;
 }
+
+*/
+/*-------------------- EXERCICE 6*/
+
+// variable dont la valeur est l'adresse mémoire d'une autre variable
+
+// --> a = 4 et *ptr = 4, et b = 2
+// --> a = 1, *ptr = 1 et b = 2
+// --> 0, 0 2s
+/*
+ int
+ main(void) {
+int a = 2, b = a;
+ int * ptr = &a;
+ *ptr = a * (*ptr);
+ printf("--> a= %d et *ptr= %d... et b= %d\n", a, *ptr, b);
+ a = ((*ptr)--);
+ printf("--> a= %d et *ptr= %d... et b= %d\n", a, *ptr, b);
+ a = (*ptr--) - 1;
+ printf("--> a= %d et *ptr= %d... et b= %d\n", a, *ptr, b);
+ return 0;
+}
+*/ 
+
+//-------------------EXERCICE 7*************
